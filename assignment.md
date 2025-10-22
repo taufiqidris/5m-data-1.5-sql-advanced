@@ -15,7 +15,13 @@ Using the `claim` and `car` tables, write a SQL query to return a table containi
 Answer:
 
 ```sql
-  SELECT claim.id, claim.claim_date, claim.travel_time, claim.claim_amt, car.car_type, car.car_use
+  SELECT 
+    claim.id, 
+    claim.claim_date, 
+    claim.travel_time, 
+    claim.claim_amt, 
+    car.car_type, 
+    car.car_use
   FROM claim
   INNER JOIN car ON claim.car_id = car.id;
 ```
@@ -42,12 +48,17 @@ Using a Common Table Expression (CTE), write a SQL query to return a table conta
 Answer:
 
 ```sql
-WITH avg_resale_value_by_car_use AS (
-  SELECT car_use, AVG(resale_value) AS average_resale_value
-  FROM car
-  GROUP BY car_use
+ WITH avg_resale_value_by_car_use AS (
+ 	SELECT 
+	    car_use, 
+	    AVG(resale_value) AS average_resale_value
+	 FROM car
+	 GROUP BY car_use
 )
-SELECT id, resale_value, c1.car_use
+SELECT 
+    id, 
+    resale_value, 
+    c1.car_use
 FROM car c1
 INNER JOIN avg_resale_value_by_car_use c2 ON c1.car_use = c2.car_use
 WHERE resale_value < average_resale_value;
